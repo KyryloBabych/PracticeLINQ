@@ -73,7 +73,7 @@ namespace Practice_Linq
                     game.Date.Year >= 2020)
                 .ToList();
 
-            // Виведення результатів
+            // Виведення результат
             Console.WriteLine("\n======================== QUERY 2 ========================");
             foreach (var game in selectedGames)
             {
@@ -85,17 +85,21 @@ namespace Practice_Linq
         // Запит 3
         static void Query3(List<FootballGame> games)
         {
-            //Query 3: Вивести всі домашні матчі збірної Франції за 2021 рік, де вона зіграла у нічию.
+            // Query 3: Вивести всі домашні матчі збірної Франції за 2021 рік, де вона зіграла у нічию.
 
-            var selectedGames = games;   // Корегуємо запит !!!
+            var selectedGames = games
+                .Where(game =>
+                    (game.Home_team == "France" && game.Home_score == game.Away_score && game.Date.Year == 2021))
+                .ToList();
 
-            // Перевірка
+            // Виведення результатів
             Console.WriteLine("\n======================== QUERY 3 ========================");
-
-            // див. приклад як має бути виведено:
-
-
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine($"{game.Home_team} vs {game.Away_team} - Score: {game.Home_score}:{game.Away_score} - Country: {game.Country} - {game.Date.ToShortDateString()}");
+            }
         }
+
 
         // Запит 4
         static void Query4(List<FootballGame> games)
