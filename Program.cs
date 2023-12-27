@@ -125,19 +125,23 @@ namespace Practice_Linq
         // Запит 5
         static void Query5(List<FootballGame> games)
         {
-            //Query 5: Вивести всі кваліфікаційні матчі (UEFA Euro qualification), які відбулися у Києві чи у Харкові, а також за умови перемоги української збірної.
+            // Query 5: Вивести всі кваліфікаційні матчі (UEFA Euro qualification), які відбулися у Києві чи у Харкові, а також за умови перемоги української збірної.
 
+            var selectedGames = games
+                .Where(game =>
+                    game.Tournament == "UEFA Euro qualification" &&
+                    (game.City == "Kyiv" || game.City == "Kharkiv") &&
+                    (game.Home_team == "Ukraine" && game.Home_score > game.Away_score))
+                .ToList();
 
-            var selectedGames = games;  // Корегуємо запит !!!
-
-
-            // Перевірка
+            // Виведення результатів
             Console.WriteLine("\n======================== QUERY 5 ========================");
-
-            // див. приклад як має бути виведено:
-
-
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine($"{game.Home_team} vs {game.Away_team} - Score: {game.Home_score}:{game.Away_score} - Country: {game.Country} - City: {game.City} - {game.Date.ToShortDateString()}");
+            }
         }
+
 
         // Запит 6
         static void Query6(List<FootballGame> games)
